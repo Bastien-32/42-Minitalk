@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server_bonus_utils.c                               :+:      :+:    :+:   */
+/*   server_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:20:54 by badal-la          #+#    #+#             */
-/*   Updated: 2025/01/31 16:13:05 by badal-la         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:05:15 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ char	*malloc_buffer(char **buffer, int *i)
 		buffer_size *= 2;
 		new_buffer = ft_realloc(*buffer, buffer_size * sizeof(char));
 		if (!new_buffer)
+		{
+			free(*buffer);
 			exit(1);
+		}
 		*buffer = new_buffer;
 	}
 	return (*buffer);

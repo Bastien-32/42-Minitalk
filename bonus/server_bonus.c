@@ -6,7 +6,7 @@
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:20:54 by badal-la          #+#    #+#             */
-/*   Updated: 2025/01/31 15:23:58 by badal-la         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:05:56 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
 
 	(void)context;
 	buffer = malloc_buffer(&buffer, &i);
-	/*if (signal == SIGUSR1)
-		c |= (0 << bit);*/
 	if (signal == SIGUSR2)
 		c |= (1 << bit);
 	bit++;
