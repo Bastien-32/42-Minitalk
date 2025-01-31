@@ -6,7 +6,7 @@
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:20:54 by badal-la          #+#    #+#             */
-/*   Updated: 2025/01/30 17:21:32 by badal-la         ###   ########.fr       */
+/*   Updated: 2025/01/31 09:21:13 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	*ft_realloc(char *old_str, int new_size)
 	}
 	return (new_str);
 }
-
 
 char	*malloc_buffer(char **buffer, int *i)
 {
@@ -71,7 +70,7 @@ void	fill_buffer(char c, char *buffer, int *i)
 void	print_buffer(char **buffer, int *i)
 {
 	static int	buffer_size = 10000;
-	
+
 	ft_printf("Received buffer : %s\n", *buffer);
 	*i = 0;
 	free(*buffer);
@@ -79,5 +78,4 @@ void	print_buffer(char **buffer, int *i)
 	if (!*buffer)
 		exit(1);
 	ft_memset(*buffer, 0, buffer_size);
-	
 }

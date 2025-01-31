@@ -6,7 +6,7 @@
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:20:54 by badal-la          #+#    #+#             */
-/*   Updated: 2025/01/30 17:20:35 by badal-la         ###   ########.fr       */
+/*   Updated: 2025/01/31 09:20:28 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(void)
 	ft_printf("Serveur PID : %d\n", getpid());
 	action_on_signal.sa_sigaction = handle_signal;
 	sigemptyset(&action_on_signal.sa_mask);
-	action_on_signal.sa_flags = SA_SIGINFO  | SA_RESTART;
+	action_on_signal.sa_flags = SA_SIGINFO | SA_RESTART;
 	sigaction(SIGUSR1, &action_on_signal, NULL);
 	sigaction(SIGUSR2, &action_on_signal, NULL);
 	while (1)
