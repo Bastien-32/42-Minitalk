@@ -6,11 +6,13 @@
 /*   By: badal-la <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:21:09 by badal-la          #+#    #+#             */
-/*   Updated: 2025/01/30 17:10:55 by badal-la         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:16:47 by badal-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+volatile sig_atomic_t g_ack_received = 0;
 
 int	ft_atoi(const char *str)
 {
@@ -40,20 +42,24 @@ void	send_char(int pid, char c)
 	int	i;
 
 	i = 0;
-	while (i <= 7)
+	while (i < 8)
 	{
+		g_ack_received = 0;
 		if ((c >> i) & 1)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		usleep(500);
+		while (!g_ack_received)
+            pause();
 		i++;
 	}
 }
 
 void	confirmation_received(int signal)
 {
-	if (signal == SIGUSR2)
+	if (signal == SIGUSR1)
+        g_ack_received = 1;
+	else if (signal == SIGUSR2)
 		ft_printf("Message received by server\n");
 }
 
@@ -61,6 +67,7 @@ int	main(int argc, char **argv)
 {
 	int	pid;
 	int	i;
+	struct sigaction sa;
 
 	i = 0;
 	if (argc != 3)
@@ -68,7 +75,11 @@ int	main(int argc, char **argv)
 		ft_printf("Error! Correct usage : ./client <PID> <message>\n");
 		return (1);
 	}
-	signal(SIGUSR2, confirmation_received);
+	sa.sa_handler = confirmation_received;
+    sa.sa_flags = SA_RESTART;
+    sigemptyset(&sa.sa_mask);
+    sigaction(SIGUSR1, &sa, NULL);
+    sigaction(SIGUSR2, &sa, NULL);
 	pid = ft_atoi(argv[1]);
 	while (argv[2][i])
 	{
